@@ -7,7 +7,15 @@ set -e
 
 SKILLS_DIR="$HOME/.gemini/antigravity/skills"
 MCP_CONFIG="$HOME/.gemini/antigravity/mcp_config.json"
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# 0. Robustly find the repository root directory even when run via symlink (npm bin)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+REPO_DIR="$(cd "$DIR/.." && pwd)"
 
 echo "🚀 Installing Antigravity Lazyweb Skills..."
 
