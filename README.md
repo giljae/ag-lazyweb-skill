@@ -35,16 +35,25 @@ Run the following command in your terminal to generate and save a free Lazyweb M
 
 ```bash
 mkdir -p ~/.lazyweb
-curl -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
+curl -k -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
   -H "content-type: application/json" \
-  -d '{}' | node -e "let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>require('fs').writeFileSync(process.env.HOME+'/.lazyweb/lazyweb_mcp_token', JSON.parse(s).token))"
+  -d '{}' | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{
+    try {
+      const token = JSON.parse(s).token;
+      require("fs").writeFileSync(require("os").homedir() + "/.lazyweb/lazyweb_mcp_token", token);
+      console.log("✅ Token saved successfully to ~/.lazyweb/lazyweb_mcp_token");
+    } catch(e) {
+      console.error("❌ Error parsing JSON:", e.message);
+      console.error("Response:", s);
+    }
+  })'
 ```
 
 ### 2. Install to Antigravity
 You can install these skills globally to your Antigravity environment using the provided script:
 
 ```bash
-./install.sh
+./scripts/install.sh
 ```
 
 This will copy the skills to `~/.gemini/antigravity/skills/` and update your global `mcp_config.json`.
@@ -53,7 +62,7 @@ This will copy the skills to `~/.gemini/antigravity/skills/` and update your glo
 To remove the skills and cleanup the MCP configuration:
 
 ```bash
-./uninstall.sh
+./scripts/uninstall.sh
 ```
 
 ## 📖 Usage Examples

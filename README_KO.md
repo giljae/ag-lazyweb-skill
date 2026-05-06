@@ -35,16 +35,25 @@
 
 ```bash
 mkdir -p ~/.lazyweb
-curl -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
+curl -k -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
   -H "content-type: application/json" \
-  -d '{}' | node -e "let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>require('fs').writeFileSync(process.env.HOME+'/.lazyweb/lazyweb_mcp_token', JSON.parse(s).token))"
+  -d '{}' | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{
+    try {
+      const token = JSON.parse(s).token;
+      require("fs").writeFileSync(require("os").homedir() + "/.lazyweb/lazyweb_mcp_token", token);
+      console.log("✅ 토큰이 성공적으로 저장되었습니다: ~/.lazyweb/lazyweb_mcp_token");
+    } catch(e) {
+      console.error("❌ JSON 파싱 에러:", e.message);
+      console.error("응답 내용:", s);
+    }
+  })'
 ```
 
 ### 2. 안티그래비티에 설치
 제공된 스크립트를 사용하여 이 스킬들을 안티그래비티 전역 환경에 설치할 수 있습니다:
 
 ```bash
-./install.sh
+./scripts/install.sh
 ```
 
 이 스크립트는 스킬들을 `~/.gemini/antigravity/skills/` 경로로 복사하고, 전역 `mcp_config.json` 파일을 업데이트합니다.
@@ -53,7 +62,7 @@ curl -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
 설치된 스킬을 제거하고 MCP 설정을 원상복구하려면 다음을 실행하세요:
 
 ```bash
-./uninstall.sh
+./scripts/uninstall.sh
 ```
 
 ## 📖 사용 예시

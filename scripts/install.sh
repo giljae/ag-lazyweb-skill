@@ -7,7 +7,7 @@ set -e
 
 SKILLS_DIR="$HOME/.gemini/antigravity/skills"
 MCP_CONFIG="$HOME/.gemini/antigravity/mcp_config.json"
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "🚀 Installing Antigravity Lazyweb Skills..."
 
