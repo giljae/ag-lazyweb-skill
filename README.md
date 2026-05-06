@@ -50,7 +50,20 @@ curl -k -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
 ```
 
 ### 2. Install to Antigravity
-You can install these skills globally to your Antigravity environment using the provided script:
+
+#### Option A: Install via npm (Recommended)
+You can install and run the installation script directly via npm:
+
+```bash
+# Install globally
+npm install -g @giljae/ag-lazyweb-skill
+
+# Run the installer
+ag-lazyweb-install
+```
+
+#### Option B: Manual Installation
+If you have cloned the repository locally, run the provided script:
 
 ```bash
 ./scripts/install.sh

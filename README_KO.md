@@ -50,7 +50,20 @@ curl -k -sS -X POST https://www.lazyweb.com/api/mcp/install-token \
 ```
 
 ### 2. 안티그래비티에 설치
-제공된 스크립트를 사용하여 이 스킬들을 안티그래비티 전역 환경에 설치할 수 있습니다:
+
+#### 옵션 A: npm을 이용한 설치 (권장)
+npm을 통해 설치 패키지를 다운로드하고 즉시 설치 스크립트를 실행할 수 있습니다:
+
+```bash
+# 전역 설치
+npm install -g @giljae/ag-lazyweb-skill
+
+# 설치 프로그램 실행
+ag-lazyweb-install
+```
+
+#### 옵션 B: 수동 설치
+리포지토리를 로컬에 클론한 경우, 제공된 스크립트를 직접 실행하세요:
 
 ```bash
 ./scripts/install.sh

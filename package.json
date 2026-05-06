@@ -1,0 +1,33 @@
+{
+  "name": "@giljae/ag-lazyweb-skill",
+  "version": "0.0.3",
+  "description": "Antigravity Lazyweb Skill - Optimized port for deep design research, visual inspiration, and design critiques.",
+  "main": "index.js",
+  "files": [
+    "lazyweb-add-inspo-source",
+    "lazyweb-design-brainstorm",
+    "lazyweb-design-improve",
+    "lazyweb-design-research",
+    "lazyweb-quick-references",
+    "lazyweb-remove-inspo-source",
+    "scripts",
+    "README.md",
+    "README_KO.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "ag-lazyweb-install": "scripts/install.sh"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "antigravity",
+    "lazyweb",
+    "skill",
+    "design",
+    "research"
+  ],
+  "author": "giljae",
+  "license": "MIT"
+}
