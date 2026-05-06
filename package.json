@@ -1,6 +1,6 @@
 {
   "name": "@giljae/ag-lazyweb-skill",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Antigravity Lazyweb Skill - Optimized port for deep design research, visual inspiration, and design critiques.",
   "main": "index.js",
   "files": [
@@ -13,7 +13,8 @@
     "scripts",
     "README.md",
     "README_KO.md",
-    "LICENSE"
+    "LICENSE",
+    "mcp-config-template.json"
   ],
   "bin": {
     "ag-lazyweb-install": "scripts/install.sh"

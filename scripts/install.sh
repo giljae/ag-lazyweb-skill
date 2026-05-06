@@ -34,14 +34,24 @@ cp -R "$REPO_DIR"/lazyweb-remove-inspo-source "$SKILLS_DIR/"
 # 3. Update global MCP configuration
 if [ ! -f "$MCP_CONFIG" ] || [ ! -s "$MCP_CONFIG" ]; then
     echo "🆕 Initializing mcp_config.json..."
-    cp "$REPO_DIR/.mcp.json" "$MCP_CONFIG"
+    if [ -f "$REPO_DIR/mcp-config-template.json" ]; then
+        cp "$REPO_DIR/mcp-config-template.json" "$MCP_CONFIG"
+    else
+        echo "❌ Error: mcp-config-template.json not found in $REPO_DIR"
+        exit 1
+    fi
 else
     echo "🔄 Updating mcp_config.json with Lazyweb server..."
     # Use jq to merge the lazyweb server definition into the existing config
     if command -v jq >/dev/null 2>&1; then
-        jq -s '.[0] * .[1]' "$MCP_CONFIG" "$REPO_DIR/.mcp.json" > "$MCP_CONFIG.tmp" && mv "$MCP_CONFIG.tmp" "$MCP_CONFIG"
+        if [ -f "$REPO_DIR/mcp-config-template.json" ]; then
+            jq -s '.[0] * .[1]' "$MCP_CONFIG" "$REPO_DIR/mcp-config-template.json" > "$MCP_CONFIG.tmp" && mv "$MCP_CONFIG.tmp" "$MCP_CONFIG"
+        else
+            echo "❌ Error: mcp-config-template.json not found in $REPO_DIR"
+            exit 1
+        fi
     else
-        echo "⚠️  Warning: jq not found. Please manually add the lazyweb server from .mcp.json to $MCP_CONFIG"
+        echo "⚠️  Warning: jq not found. Please manually add the lazyweb server from mcp-config-template.json to $MCP_CONFIG"
     fi
 fi
 
